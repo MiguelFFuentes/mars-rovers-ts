@@ -13,17 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          
+
       - uses: c-hive/gha-npm-cache@v1
       - run: npm ci
       - run: npm run test
 
-  deploy:
+  build-image:
     needs:
       test
     runs-on: ubuntu-latest
@@ -43,4 +43,21 @@ jobs:
           push: true
           tags: mffuentes/mars-rovers:${{ github.sha }}
 
+  deploy:
+    needs:
+      build-image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
+      - name: Deploy to EC2 instance
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            docker stop mars-rovers || true
+            docker rm mars-rovers || true
+            docker pull ${{ secrets.DOCKER_USERNAME }}/mars-rovers:${{ github.sha }}
+            docker run -d --name mars-rovers -p 80:80 ${{ secrets.DOCKER_USERNAME }}/mars-rovers:${{ github.sha }}
