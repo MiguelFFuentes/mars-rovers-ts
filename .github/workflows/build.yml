@@ -63,13 +63,23 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Deploy to EC2 instance
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          script: |
-            docker stop mars-rovers || true
-            docker rm mars-rovers || true
-            docker pull ${{ secrets.DOCKER_USERNAME }}/mars-rovers:${{ github.sha }}
-            docker run -d --name mars-rovers -p 80:80 ${{ secrets.DOCKER_USERNAME }}/mars-rovers:${{ github.sha }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+
+              # Now we have got the access of EC2 and we will start the deploy .
+              docker stop mars-rovers || true
+              docker rm mars-rovers || true
+              docker pull ${{ secrets.DOCKER_USERNAME }}/mars-rovers:${{ github.sha }}
+              docker run -d --name mars-rovers -p 80:80 ${{ secrets.DOCKER_USERNAME }}/mars-rovers:${{ github.sha }}
+              '
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.EC2_HOST }}
+#          username: ${{ secrets.EC2_USERNAME }}
+#          key: ${{ secrets.EC2_PRIVATE_KEY }}
+#          script: |
+#            docker stop mars-rovers || true
+#            docker rm mars-rovers || true
+#            docker pull ${{ secrets.DOCKER_USERNAME }}/mars-rovers:${{ github.sha }}
+#            docker run -d --name mars-rovers -p 80:80 ${{ secrets.DOCKER_USERNAME }}/mars-rovers:${{ github.sha }}
