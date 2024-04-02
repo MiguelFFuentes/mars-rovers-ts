@@ -37,13 +37,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: create coverage dir
+        run: mkdir coverage && cd coverage
+        
       - name: Download coverage artifact
         uses: actions/download-artifact@v4
         with:
           name: coverage
-
-      - name: log
-        run: ls
+          
+      - name: go to root
+        run: cd ..
       
       - name: Login to Docker Hub
         uses: docker/login-action@v1
