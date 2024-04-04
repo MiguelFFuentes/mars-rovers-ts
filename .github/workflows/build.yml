@@ -56,12 +56,12 @@ jobs:
           tags: mffuentes/mars-rovers:${{ github.sha }}
 
   deploy:
+    if: ${{ github.event_name == 'push' }}
     needs:
       build-image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Deploy to EC2 instance
         uses: appleboy/ssh-action@master
         with:
