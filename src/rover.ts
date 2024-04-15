@@ -1,42 +1,19 @@
+import {Direction} from "./directions/direction";
+import {North} from "./directions/north";
+
 export class Rover {
     private direction: Direction
 
     constructor() {
-        this.direction = 'N'
+        this.direction = new North()
     }
 
     left(): void {
-        switch (this.direction) {
-            case 'N':
-                this.direction = 'W'
-                break;
-            case 'E':
-                this.direction = 'N'
-                break;
-            case 'S':
-                this.direction = 'E'
-                break;
-            case 'W':
-                this.direction = 'S'
-                break;
-        }
+        this.direction = this.direction.left()
     }
 
     right(): void {
-        switch (this.direction) {
-            case 'N':
-                this.direction = 'E'
-                break;
-            case 'E':
-                this.direction = 'S'
-                break;
-            case 'S':
-                this.direction = 'W'
-                break;
-            case 'W':
-                this.direction = 'N'
-                break;
-        }
+        this.direction = this.direction.right()
     }
 
     toString(): string {
@@ -44,5 +21,3 @@ export class Rover {
     }
 
 }
-
-type Direction = 'N' | 'S' | 'E' | 'W'
