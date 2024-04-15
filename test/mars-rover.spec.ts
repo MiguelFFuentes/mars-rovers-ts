@@ -5,38 +5,18 @@ describe('MarsRover', () => {
     let marsRover: MarsRover
     beforeEach(() => {
         marsRover = new MarsRover()
-
     })
 
-    it('should rotate right', () => {
-        expect(marsRover.execute('R')).toBe('0:0:E')
-    })
-
-    it('should rotate right twice', () => {
-        expect(marsRover.execute('RR')).toBe('0:0:S')
-    })
-
-    it('should rotate right thrice', () => {
-        expect(marsRover.execute('RRR')).toBe('0:0:W')
-    })
-
-    it('should rotate four times', () => {
-        expect(marsRover.execute('RRRR')).toBe('0:0:N')
-    })
-
-    it('should rotate left', () => {
-        expect(marsRover.execute('L')).toBe('0:0:W')
-    })
-
-    it('should rotate left twice', () => {
-        expect(marsRover.execute('LL')).toBe('0:0:S')
-    })
-
-    it('should rotate left thrice', () => {
-        expect(marsRover.execute('LLL')).toBe('0:0:E')
-    })
-
-    it('should rotate left times', () => {
-        expect(marsRover.execute('LLLL')).toBe('0:0:N')
+    it.each([
+        {command: 'L', result: '0:0:W'},
+        {command: 'LL', result: '0:0:S'},
+        {command: 'LLL', result: '0:0:E'},
+        {command: 'LLLL', result: '0:0:N'},
+        {command: 'R', result: '0:0:E'},
+        {command: 'RR', result: '0:0:S'},
+        {command: 'RRR', result: '0:0:W'},
+        {command: 'RRRR', result: '0:0:N'}
+    ])('should rotate with $command to $result', ({command, result}) => {
+        expect(marsRover.execute(command)).toBe(result)
     })
 })
