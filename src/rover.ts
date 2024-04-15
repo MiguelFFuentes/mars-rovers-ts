@@ -22,7 +22,7 @@ export class Rover {
     }
 
     move(): void {
-        const [x, y] = this.direction.move()
+        const [x, y] = this.direction.vector()
         this.position.x += x
         this.position.y += y
     }

@@ -11,7 +11,7 @@ export class West implements Direction {
         return new North()
     }
 
-    move(): [x: number, y: number] {
+    vector(): [x: number, y: number] {
         return [-1, 0]
     }
 

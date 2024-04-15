@@ -11,7 +11,7 @@ export class East implements Direction {
         return new South()
     }
 
-    move(): [x: number, y: number] {
+    vector(): [x: number, y: number] {
         return [1, 0]
     }
 
