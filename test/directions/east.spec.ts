@@ -23,6 +23,6 @@ describe('East', () => {
     })
 
     it('should give the movement vector', () => {
-        expect(east.move()).toEqual([1, 0])
+        expect(east.vector()).toEqual([1, 0])
     })
 })
