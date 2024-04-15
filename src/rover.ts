@@ -1,15 +1,13 @@
 import {Direction} from "./directions/direction";
 import {North} from "./directions/north";
+import {Position} from "./position";
 
 export class Rover {
     private position: Position
     private direction: Direction
 
     constructor() {
-        this.position = {
-            x: 0,
-            y: 0
-        }
+        this.position = new Position(0, 0)
         this.direction = new North()
     }
 
