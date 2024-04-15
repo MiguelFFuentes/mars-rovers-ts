@@ -15,7 +15,8 @@ describe('MarsRover', () => {
         {command: 'R', result: '0:0:E'},
         {command: 'RR', result: '0:0:S'},
         {command: 'RRR', result: '0:0:W'},
-        {command: 'RRRR', result: '0:0:N'}
+        {command: 'RRRR', result: '0:0:N'},
+        {command: 'M', result: '0:1:N'},
     ])('should rotate with $command to $result', ({command, result}) => {
         expect(marsRover.execute(command)).toBe(result)
     })

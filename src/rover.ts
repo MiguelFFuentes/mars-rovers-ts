@@ -2,9 +2,14 @@ import {Direction} from "./directions/direction";
 import {North} from "./directions/north";
 
 export class Rover {
+    private position: Position
     private direction: Direction
 
     constructor() {
+        this.position = {
+            x: 0,
+            y: 0
+        }
         this.direction = new North()
     }
 
@@ -16,8 +21,14 @@ export class Rover {
         this.direction = this.direction.right()
     }
 
+    move(): void {
+        const [x, y] = this.direction.move()
+        this.position.x += x
+        this.position.y += y
+    }
+
     toString(): string {
-        return '0:0:' + this.direction
+        return `${this.position.x}:${this.position.y}:${this.direction}`
     }
 
 }

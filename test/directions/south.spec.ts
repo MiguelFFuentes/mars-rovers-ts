@@ -21,4 +21,8 @@ describe('South', () => {
     it('should represent itself as an string', () => {
         expect(south.toString()).toBe('S')
     })
+
+    it('should give the movement vector', () => {
+        expect(south.move()).toEqual([0, -1])
+    })
 })
