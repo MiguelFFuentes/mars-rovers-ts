@@ -10,10 +10,16 @@ export class MarsRover {
 
     execute(command: string): string {
         [...command].forEach(action => {
-            if (action === 'R') {
-                this.rover.right()
-            } else {
-                this.rover.left()
+            switch (action) {
+                case 'R':
+                    this.rover.right()
+                    break
+                case 'L':
+                    this.rover.left()
+                    break
+                case 'M':
+                    this.rover.move()
+                    break
             }
         })
         return this.rover.toString()
