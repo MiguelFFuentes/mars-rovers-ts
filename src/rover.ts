@@ -1,6 +1,7 @@
 import {Direction} from "./directions/direction";
 import {North} from "./directions/north";
 import {Position} from "./position";
+import {Coordinate} from "./coordinate";
 
 export class Rover {
     private position: Position
@@ -23,6 +24,14 @@ export class Rover {
         const [x, y] = this.direction.vector()
         this.position.x += x
         this.position.y += y
+    }
+
+    nextPosition(): Coordinate {
+        const [x, y] = this.direction.vector()
+        return {
+            x: this.position.x + x,
+            y: this.position.y + y
+        }
     }
 
     toString(): string {
