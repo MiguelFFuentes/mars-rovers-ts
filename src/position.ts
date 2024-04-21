@@ -1,4 +1,6 @@
-export class Position {
+import {Coordinate} from "./coordinate";
+
+export class Position implements Coordinate{
 
     private _x: number = 0
     get x(): number {

@@ -1,10 +1,11 @@
 import {Rover} from "../src/rover";
+import {Coordinate} from "../src/coordinate";
 
 describe('Rover', () => {
 
     let rover: Rover
 
-    beforeEach(() =>{
+    beforeEach(() => {
         rover = new Rover()
     })
 
@@ -35,5 +36,10 @@ describe('Rover', () => {
         rover.move()
 
         expect(rover.toString()).toBe('1:0:E')
+    })
+
+    it('should return the next position', () => {
+        const nextPosition: Coordinate = rover.nextPosition()
+        expect(nextPosition).toEqual({x: 0, y: 1})
     })
 })
