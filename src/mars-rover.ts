@@ -27,6 +27,8 @@ export class MarsRover {
                     }
                     this.rover.move()
                     break
+                case 'S':
+                    return this.rover.toString()
             }
         }
         return this.rover.toString()
